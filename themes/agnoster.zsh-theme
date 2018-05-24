@@ -85,6 +85,13 @@ prompt_context() {
   fi
 }
 
+# AWS Profile: Show the current AWS profile, if specified
+prompt_aws_profile() {
+  if [[ "$AWS_PROFILE" != "" ]]; then
+    prompt_segment yellow black "AWS:$AWS_PROFILE"
+  fi
+}
+
 # Git: branch/detached head, dirty status
 prompt_git() {
   (( $+commands[git] )) || return
@@ -219,7 +226,7 @@ build_prompt() {
   PROMPT='%{%f%b%k%}'
   prompt_status
   prompt_virtualenv
-  prompt_context
+  prompt_aws_profile
   prompt_dir
   prompt_git
   prompt_bzr
